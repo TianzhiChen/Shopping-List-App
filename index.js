@@ -6,7 +6,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebas
 import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const appSettings = {
-    databaseURL: "https://playground-a67f6-default-rtdb.firebaseio.com/"
+    databaseURL: "https://shoppinglist-b710c-default-rtdb.firebaseio.com/"
 }
 
 const app = initializeApp(appSettings)
@@ -15,11 +15,16 @@ const shoppingListInDB = ref(database, "shoppingList")
 
 const inputFieldEl = document.getElementById("input-field")
 const addButtonEl = document.getElementById("add-button")
+const shoppingListEl = document.getElementById("shopping-list")
 
 addButtonEl.addEventListener("click", function() {
     let inputValue = inputFieldEl.value
     
     push(shoppingListInDB, inputValue)
     
-    console.log(inputValue)
+    // Clear the input field when button is pressed
+    inputFieldEl.value = ""
+
+    // Append a new <li> with text content inputValue to the 'shopping-list' <ul>
+    shoppingListEl.innerHTML += '<li>${inputValue}</li>'
 })
