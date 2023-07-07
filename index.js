@@ -3,7 +3,7 @@ when you click the 'Add to cart' button, whatever is written in the input field 
 */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const appSettings = {
     databaseURL: "https://shoppinglist-b710c-default-rtdb.firebaseio.com/"
@@ -23,8 +23,28 @@ addButtonEl.addEventListener("click", function() {
     push(shoppingListInDB, inputValue)
     
     // Clear the input field when button is pressed
-    inputFieldEl.value = ""
+    clearInputFieldEl()
 
     // Append a new <li> with text content inputValue to the 'shopping-list' <ul>
-    shoppingListEl.innerHTML += '<li>${inputValue}</li>'
+    appendItemToShoppingListEl(inputValue) 
 })
+
+/*
+Call the onValue function with
+shoppingListInDB as the first argument and
+function(snapshot) {} as the second argument
+*/
+
+onValue(shoppingListInDB, function(snapshot) {
+    let itemsArray = Object.values(snapshot.val())
+    // Use Object.values() to convert snapshot.val() from an Object to an Array. Create a variable for this.
+    console.log(itemsArray)
+})
+
+function clearInputFieldEl() {
+    inputFieldEl.value = ""
+}
+
+function appendItemToShoppingListEl(itemValue) {
+    shoppingListEl.innerHTML += `<li>${itemValue}</li>`
+}
