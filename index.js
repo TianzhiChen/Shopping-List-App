@@ -32,27 +32,34 @@ function(snapshot) {} as the second argument
 */
 
 onValue(shoppingListInDB, function(snapshot) {
-    // Use Object.values() to convert snapshot.val() from an Object to an Array. Create a variable for this.
-    let itemsArray = Object.entries(snapshot.val())
+     // Change the onValue code so that it uses snapshot.exists() to show items when there are items in the database and if there are not displays the text 'No items here... yet'.
 
-    // console.log(snapshot.val())
+    if (snapshot.exists()) {
+        // Use Object.values() to convert snapshot.val() from an Object to an Array. Create a variable for this.
+        let itemsArray = Object.entries(snapshot.val())
 
-    clearShoppingListEl()  
-    // console.log(itemsArray) 
+        // console.log(snapshot.val())
 
-    // Write a for loop to iterate on itemsArray and console log each item
-    for (let i = 0; i < itemsArray.length; i++) {
-        let currentItem = itemsArray[i]
+        clearShoppingListEl()  
+        // console.log(itemsArray) 
 
-        // Make two let variables:
-        // currentItemID and currentItemValue and use currentItem to set both of
-        // them equal to the correct values.
-        let currentItemID = currentItem[0]
-        let currentItemValue = currentItem[1]
+        // Write a for loop to iterate on itemsArray and console log each item
+        for (let i = 0; i < itemsArray.length; i++) {
+            let currentItem = itemsArray[i]
 
-        // Use the appendItemToShoppingListEl(itemValue) function inside of the for loop to append item to the shopping list element for each iteration.
-        appendItemToShoppingListEl(currentItem)
-    }        
+            // Make two let variables:
+            // currentItemID and currentItemValue and use currentItem to set both of
+            // them equal to the correct values.
+            let currentItemID = currentItem[0]
+            let currentItemValue = currentItem[1]
+
+            // Use the appendItemToShoppingListEl(itemValue) function inside of the for loop to append item to the shopping list element for each iteration.
+            appendItemToShoppingListEl(currentItem)
+        }        
+    } else {
+        shoppingListEl.innerHTML = "No items here... yet" 
+    }
+   
 })
 
 function clearShoppingListEl() {
