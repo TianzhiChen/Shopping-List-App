@@ -51,7 +51,7 @@ onValue(shoppingListInDB, function(snapshot) {
         let currentItemValue = currentItem[1]
 
         // Use the appendItemToShoppingListEl(itemValue) function inside of the for loop to append item to the shopping list element for each iteration.
-        appendItemToShoppingListEl(currentItemValue)
+        appendItemToShoppingListEl(currentItem)
     }        
 })
 
@@ -65,6 +65,15 @@ function clearInputFieldEl() {
 }
 
 // Append a new <li> with text content inputValue to the 'shopping-list' <ul>
-function appendItemToShoppingListEl(itemValue) {
-    shoppingListEl.innerHTML += `<li>${itemValue}</li>`
+function appendItemToShoppingListEl(item) {
+    // shoppingListEl.innerHTML += `<li>${itemValue}</li>`
+
+    let itemID = item[0]
+    let itemValue = item[1]
+    
+    let newEl = document.createElement("li")
+    
+    newEl.textContent = itemValue
+    
+    shoppingListEl.append(newEl)
 }
