@@ -4,6 +4,8 @@ html, body {
     font-family: 'Rubik', sans-serif;
     background-color: #EEF0F4;
     color: #432000;
+    /* Make it so that the user cannot select the text */
+    user-select: none;
 }
 
 .container {
