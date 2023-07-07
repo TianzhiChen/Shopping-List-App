@@ -3,7 +3,7 @@ when you click the 'Add to cart' button, whatever is written in the input field 
 */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const appSettings = {
     databaseURL: "https://shoppinglist-b710c-default-rtdb.firebaseio.com/"
@@ -74,6 +74,17 @@ function appendItemToShoppingListEl(item) {
     let newEl = document.createElement("li")
     
     newEl.textContent = itemValue
+    
+    // Attach an event listener to newEl and make it so you console log the id of the item when it's pressed.
+    newEl.addEventListener("click", function() {
+        // console.log(itemID)
+
+        // Make a let variable called 'exactLocationOfItemInDB' and set it equal to ref(database, something) where you substitute something with the code that will give you the exact location of the item in question.
+        let exactLocationOfItemInDB = ref(database, `shoppingList/${itemID}`)
+        
+        // Use the remove function to remove the item from the database
+        remove(exactLocationOfItemInDB)
+    })
     
     shoppingListEl.append(newEl)
 }
