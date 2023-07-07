@@ -19,14 +19,10 @@ const shoppingListEl = document.getElementById("shopping-list")
 
 addButtonEl.addEventListener("click", function() {
     let inputValue = inputFieldEl.value
-    
+    // console.log(inputValue)
     push(shoppingListInDB, inputValue)
     
-    // Clear the input field when button is pressed
-    clearInputFieldEl()
-
-    // Append a new <li> with text content inputValue to the 'shopping-list' <ul>
-    appendItemToShoppingListEl(inputValue) 
+    clearInputFieldEl()   
 })
 
 /*
@@ -39,18 +35,26 @@ onValue(shoppingListInDB, function(snapshot) {
     // Use Object.values() to convert snapshot.val() from an Object to an Array. Create a variable for this.
     let itemsArray = Object.values(snapshot.val())
 
+    clearShoppingListEl()  
+    // console.log(itemsArray) 
+
     // Write a for loop to iterate on itemsArray and console log each item
     for (let i = 0; i < itemsArray.length; i++) {
         // Use the appendItemToShoppingListEl(itemValue) function inside of the for loop to append item to the shopping list element for each iteration.
         appendItemToShoppingListEl(itemsArray[i])
-    }    
-    
+    }        
 })
 
+function clearShoppingListEl() {
+    shoppingListEl.innerHTML = ""
+}
+
+// Clear the input field when button is pressed
 function clearInputFieldEl() {
     inputFieldEl.value = ""
 }
 
+// Append a new <li> with text content inputValue to the 'shopping-list' <ul>
 function appendItemToShoppingListEl(itemValue) {
     shoppingListEl.innerHTML += `<li>${itemValue}</li>`
 }
